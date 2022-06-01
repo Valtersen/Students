@@ -24,7 +24,7 @@ class Course(base):
         self.name = name
         self.description = description
 
-    def toDict(self):
+    def to_dict(self):
         return {
             'id': self.id,
             'name': self.name,
@@ -46,7 +46,7 @@ class Student(base):
         self.first_name = first_name
         self.last_name = last_name
 
-    def toDict(self):
+    def to_dict(self):
         return {
             'id': self.id,
             'group_id': self.group_id,
@@ -64,7 +64,7 @@ class Group(base):
     def __init__(self, name):
         self.name = name
 
-    def toDict(self):
+    def to_dict(self):
         return {
             'id': self.id,
             'name': self.name

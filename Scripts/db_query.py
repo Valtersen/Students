@@ -23,7 +23,7 @@ def students_on_course(session, course_name):
                             .order_by(Student_Course.student_id)\
                             .where(Course.name == course_name)
 
-    res = {json.dumps(row.toDict(), indent=4, sort_keys=True, default=str) for row in query}
+    res = {json.dumps(row.to_dict(), indent=4, sort_keys=True, default=str) for row in query}
     return res
 
 
@@ -32,7 +32,7 @@ def add_student(session, f_name, l_name, group):
     student = Student(first_name=f_name, last_name=l_name, group_id=group)
     session.add(student)
     session.commit()
-    return student.toDict()
+    return student.to_dict()
 
 
 # Delete student by STUDENT_ID
@@ -65,7 +65,7 @@ def add_student_course(session, student_id, course_id):
         student.courses.append(course)
 
     session.commit()
-    return json.dumps(student.toDict(), indent=4, sort_keys=True, default=str)
+    return json.dumps(student.to_dict(), indent=4, sort_keys=True, default=str)
 
 
 # Remove the student from one of his or her courses
@@ -87,12 +87,12 @@ def remove_student_course(session, student_id, course_id):
         student.courses.remove(course)
 
     session.commit()
-    return json.dumps(student.toDict(), indent=4, sort_keys=True, default=str)
+    return json.dumps(student.to_dict(), indent=4, sort_keys=True, default=str)
 
 
 def get_students(session):
     query = session.query(Student).all()
-    res = {json.dumps(student.toDict(), indent=4, sort_keys=True, default=str) for student in query}
+    res = {json.dumps(student.to_dict(), indent=4, sort_keys=True, default=str) for student in query}
     return res
 
 
@@ -100,13 +100,13 @@ def get_student(session, stud_id):
     student = session.query(Student).where(Student.id == stud_id).first()
     if student is None:
         return "Student not found"
-    res = json.dumps(student.toDict(), indent=4, sort_keys=True, default=str)
+    res = json.dumps(student.to_dict(), indent=4, sort_keys=True, default=str)
     return res
 
 
 def get_courses(session):
     query = session.query(Course).all()
-    res = {json.dumps(course.toDict(), indent=4, sort_keys=True, default=str) for course in query}
+    res = {json.dumps(course.to_dict(), indent=4, sort_keys=True, default=str) for course in query}
     return res
 
 
@@ -119,12 +119,12 @@ def get_course(session, course_id):
         course = session.query(Course).where(Course.name == course_id).first()
         if course is None:
             return "Course not found"
-    return json.dumps(course.toDict(), indent=4, sort_keys=True, default=str)
+    return json.dumps(course.to_dict(), indent=4, sort_keys=True, default=str)
 
 
 def get_groups(session):
     query = session.query(Group).all()
-    res = {json.dumps(group.toDict(), indent=4, sort_keys=True, default=str) for group in query}
+    res = {json.dumps(group.to_dict(), indent=4, sort_keys=True, default=str) for group in query}
     return res
 
 
@@ -132,7 +132,7 @@ def get_group(session, group_id):
     group = session.query(Course).get(group_id)
     if group is None:
         return "Group not found"
-    return json.dumps(group.toDict(), indent=4, sort_keys=True, default=str)
+    return json.dumps(group.to_dict(), indent=4, sort_keys=True, default=str)
 
 
 def delete_all(engine):

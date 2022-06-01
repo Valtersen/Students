@@ -10,8 +10,7 @@ def insert_groups(session):
     for i in range(0, 10):
         chars = (''.join(random.choice(string.ascii_letters) for x in range(2))).upper()
         num = random.randint(0, 99)
-        if len(str(num)) < 2:
-            num = f"0{str(num)}"
+        num = ("{:0>2d}".format(num))
         name = f"{chars}-{num}"
         group = Group(name)
         session.add(group)
